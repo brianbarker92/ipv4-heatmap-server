@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     //});
 //});
 
-app.get('/ipv4heatmap/:lower_lat?/:higher_lat?/:lower_long?/:higher_long?', (req, res) => {
+app.get('/ipv4heatmapbounded/:lower_lat?/:higher_lat?/:lower_long?/:higher_long?', (req, res) => {
 	var low_lat = req.params.lower_lat;
 	var high_lat = req.params.higher_lat;
 	var low_lng = req.params.lower_long;
