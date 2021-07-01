@@ -1,14 +1,28 @@
 const http = require('http');
+const port = 8080;
 
-const hostname = '127.0.0.1';
-const port = 3000;
+http
+  .createServer((req, res) => {
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+      'Access-Control-Max-Age': 2592000 // 30 days
+      /** add other headers as per requirement */
+    };
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, headers);
+      res.end();
+      return;
+    }
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+    if (['GET', 'POST'].indexOf(req.method) > -1) {
+      res.writeHead(200, headers);
+      res.end('Hello World');
+      return;
+    }
+
+    res.writeHead(405, headers);
+    res.end(`${req.method} is not allowed for the request.`);
+  })
+  .listen(port);
