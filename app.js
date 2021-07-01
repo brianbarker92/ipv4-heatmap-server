@@ -25,4 +25,4 @@ http
     res.writeHead(405, headers);
     res.end(`${req.method} is not allowed for the request.`);
   })
-  .listen(port);
+  .listen(process.env.PORT || port);
