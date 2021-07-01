@@ -1,28 +1,25 @@
-const http = require('http');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
 const port = 8080;
 
-http
-  .createServer((req, res) => {
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-      'Access-Control-Max-Age': 2592000 // 30 days
-      /** add other headers as per requirement */
-    };
+app.use(cors())
 
-    if (req.method === 'OPTIONS') {
-      res.writeHead(204, headers);
-      res.end();
-      return;
-    }
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Hello World'
+    });
+});
 
-    if (['GET', 'POST'].indexOf(req.method) > -1) {
-      res.writeHead(200, headers);
-      res.end('Hello World');
-      return;
-    }
+app.get('/:name', (req, res) => {
+    let name = req.params.name;
 
-    res.writeHead(405, headers);
-    res.end(`${req.method} is not allowed for the request.`);
-  })
-  .listen(process.env.PORT || port);
+    res.json({
+        message: `Hello ${name}`
+    });
+});
+
+app.listen(process.env.PORT || port, () => {
+    console.log('server is listening');
+});
