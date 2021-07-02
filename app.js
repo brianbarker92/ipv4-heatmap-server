@@ -57,20 +57,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/ipv4heatmapbounded/:lower_lat?/:higher_lat?/:lower_long?/:higher_long?', (req, res) => {
-	var low_lat = req.params.lower_lat;
-	var high_lat = req.params.higher_lat;
-	var low_lng = req.params.lower_long;
-	var high_lng = req.params.higher_long;
+	var low_lat = parseFloat(req.params.lower_lat);
+	var high_lat = parseFloat(req.params.higher_lat);
+	var low_lng = parseFloat(req.params.lower_long);
+	var high_lng = parseFloat(req.params.higher_long);
 	
-	if(!low_lat || !high_lat || !low_lng || !high_lng) { //if missing any bound, just serve top 1000
-		res.json(ipData.slice(0,1000));
-		return;
-	}
+	//if(!low_lat || !high_lat || !low_lng || !high_lng) { //if missing any bound, just serve top 1000
+	//	res.json(ipData.slice(0,1000));
+	//	return;
+	//}
 	
 	var locs = [];
 	ipData.forEach(function(item, index, array) {
-          let lat = item['latitude'];
-          let lng = item['longitude'];
+          let lat = parseFloat(item['latitude']);
+          let lng = parseFloat(item['longitude']);
           if((lat >= low_lat && lat <= high_lat)
             && (lng >= low_lng && lng <= high_lng)){
 			locs.push(item);
