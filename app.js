@@ -1,3 +1,5 @@
+var compression = require('compression')
+
 const csv = require('csv-parser');
 const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
@@ -49,6 +51,8 @@ const app = express();
 const port = 8080;
 
 app.use(cors())
+
+app.use(compression())
 
 app.get('/', (req, res) => {
     res.json({
