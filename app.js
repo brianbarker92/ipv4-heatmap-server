@@ -2,29 +2,17 @@ const csv = require('csv-parser');
 const fs = require('fs');
 
 var ipData = []
-fs.createReadStream('ipv4-first-half.csv')
+fs.createReadStream('ipv4-1000.csv')
   .pipe(csv())
   .on('data', (row) => {
     //console.log(row);
-	var loc = {'latitude':row['latitude'],'longitude':row['longitude'], 'heat':100};
+	var loc = {'latitude':row['latitude'],'longitude':row['longitude'], 'heat':1};
 	ipData.push(loc);
   })
   .on('end', () => {
     console.log('CSV file successfully processed first half');
   });
   
-fs.createReadStream('ipv4-second-half.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    //console.log(row);
-	var loc = {'latitude':row['latitude'],'longitude':row['longitude'], 'heat':100};
-	ipData.push(loc);
-  })
-  .on('end', () => {
-    console.log('CSV file successfully processed second half');
-  });
-
-
 const express = require('express');
 const cors = require('cors');
 
