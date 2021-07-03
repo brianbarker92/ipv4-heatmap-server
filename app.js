@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 					+ ' low_lat: the lower latitude of the bounding box'
 					+ ' up_lat: the upper latitude of the bounding box'
 					+ ' low_long: the lower longitude of the bounding box'
-					+ ' up_long: the lower longitude of the bounding box'
+					+ ' up_long: the upper longitude of the bounding box'
     });
 });
 
