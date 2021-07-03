@@ -91,8 +91,8 @@ app.get('/compressdata', (req, res) => {
 		let before_count = fullData.length;
 		locs_c = new Map();
 		fullData.forEach(function(item, index, array) {
-			let lat = parseFloat(item['latitude']).toFixed(3);
-			let lng = parseFloat(item['longitude']).toFixed(3);
+			let lat = parseFloat(item['latitude']).toFixed(4);
+			let lng = parseFloat(item['longitude']).toFixed(4);
 			let key = lat + "_" + lng;
 			if (locs_c[key]) {
 				locs_c[key] = locs_c[key] + 1;
