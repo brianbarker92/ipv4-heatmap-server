@@ -56,7 +56,14 @@ app.use(compression())
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'Hello World'
+        message: 'Hello, this API contains general heatmap information for ipv4 addresses.'
+					+ ' Use the /ipv4heatmapbounded/low_lat/up_lat/low_long/up_long '
+					+ ' endpoint to get the data for a given geographical bounding box. '
+					+ ' The parameter values are: '
+					+ ' low_lat: the lower lattitude of the bounding box'
+					+ ' up_lat: the upper lattitude of the bounding box'
+					+ ' low_long: the lower longitude of the bounding box'
+					+ ' up_long: the lower longitude of the bounding box'
     });
 });
 
