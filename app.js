@@ -93,7 +93,7 @@ app.get('/ipv4heatmapbounded/:lower_lat/:higher_lat/:lower_long/:higher_long', (
  
  IMPORTANT NOTE: the heroku node does not have space currently for the full dataset, 
  so I did this locally. For this endpoint to work, you need to put the full dataset in the 
- working directory and uncomment line 17 to load it.
+ working directory and uncomment line 130 to load it.
 */
 app.get('/compressdata', (req, res) => {
 	if (fullData.length === 0) {
@@ -127,7 +127,7 @@ app.get('/compressdata', (req, res) => {
 });
 
 readFile('ipv4-compressed.csv', ipData, true);
-readFile('ipv4-full.csv', fullData, false); //uncomment if you want to reload the full dataset
+//readFile('ipv4-full.csv', fullData, false); //uncomment if you want to reload the full dataset
 
 app.listen(process.env.PORT || port, () => {
     console.log('server is listening');
