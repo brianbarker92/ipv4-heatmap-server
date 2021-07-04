@@ -1,8 +1,17 @@
-var compression = require('compression')
-
+const compression = require('compression')
 const csv = require('csv-parser');
 const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 8080;
+
+var ipData = []
+var fullData = []
+
+app.use(cors())
+app.use(compression())
 
 function writeFile(filename, data) {
 	const csvWriter = createCsvWriter({
@@ -13,7 +22,6 @@ function writeFile(filename, data) {
 		{id: 'heat', title: 'heat'},
 	  ]
 	});
-
 	csvWriter
 	  .writeRecords(data)
 	  .then(()=> console.log('The compressed CSV file:' + filename + ' was written successfully'));
@@ -35,22 +43,6 @@ function readFile(filename, ipData, iscompressed) {
 		console.log('CSV file: ' + filename + ' successfully loaded');
 	});
 }
-
-var ipData = []
-readFile('ipv4-compressed.csv', ipData, true);
-var fullData = []
-//readFile('ipv4-full.csv', fullData, false); //uncomment if you want to reload the full dataset
-
- 
-const express = require('express');
-const cors = require('cors');
-
-const app = express();
-const port = 8080;
-
-app.use(cors())
-
-app.use(compression())
 
 app.get('/', (req, res) => {
     res.json({
@@ -101,7 +93,7 @@ app.get('/ipv4heatmapbounded/:lower_lat/:higher_lat/:lower_long/:higher_long', (
  
  IMPORTANT NOTE: the heroku node does not have space currently for the full dataset, 
  so I did this locally. For this endpoint to work, you need to put the full dataset in the 
- working directory and uncomment line 42 to load it.
+ working directory and uncomment line 17 to load it.
 */
 app.get('/compressdata', (req, res) => {
 	if (fullData.length === 0) {
@@ -133,6 +125,9 @@ app.get('/compressdata', (req, res) => {
 		res.send("compressed " + before_count + " items down to " + after_count + " items.");
 	}
 });
+
+readFile('ipv4-compressed.csv', ipData, true);
+readFile('ipv4-full.csv', fullData, false); //uncomment if you want to reload the full dataset
 
 app.listen(process.env.PORT || port, () => {
     console.log('server is listening');
